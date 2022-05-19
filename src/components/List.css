@@ -1,0 +1,24 @@
+.list-box{
+    width: 1000px;
+    margin: 0 auto;
+}
+.list-box ul li{
+    list-style: none;
+    float: left;
+    width: 200px;
+    height: 180px;
+    border: 1px solid #ccc;
+}
+.list-box ul li a{
+    display: block;
+    padding-top: 30px;
+    width: 100%;
+    text-decoration: none;
+    color: #333;
+    height: 100%;
+    text-align: center;
+}
+.list-box ul li a img{
+    width: 80px;
+    height: 80px;
+}

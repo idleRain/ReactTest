@@ -1,64 +1,32 @@
-import React from "react"
-import Header from "./Components/Header";
-import List from "./Components/List";
-import Footer from "./Components/Footer";
-import './App.css'
+import React, {Component} from 'react';
+import Search from "./components/Search";
+import List from "./components/List";
 
-class App extends React.Component {
-    // 初始化状态
+class App extends Component {
     state = {
-        todos: [
-            {id: '001', title: '吃饭', done: true},
-            {id: '002', title: '睡觉', done: false},
-            {id: '003', title: '开车', done: false},
-        ]
+        // 初始化用户信息
+        users: [],
+        // 是否第一次打开
+        isFirst: true,
+        // 是否加载中
+        isLoading: false,
+        // 请求相关的错误信息
+        err: ''
     }
-    // 添加一个 todo
-    addTodo = todoObj => {
-        const newTodos = [todoObj, ...this.state.todos]
-        // console.log(newTodos)
-        this.setState({todos: newTodos})
-    }
-    // 修改 todo 勾选状态
-    updateTodos = (id, done) => {
-        // console.log('App', id, done)
-        const newTodos = this.state.todos.map(todoObj => {
-            if (todoObj.id === id) return {...todoObj, done}
-            else return todoObj
-        })
-        this.setState({todos: newTodos})
-    }
-    // 删除一个todo
-    deleteTodo = (id) => {
+    saveUsers = users => {
         this.setState({
-            todos: this.state.todos.filter(item => item.id !== id)
-        })
-    }
-    // 全选、取消权限
-    checkTodoAll = (done) => {
-        this.setState({
-            todos: this.state.todos.map(item => ({...item, item, done: done}))
-        })
-    }
-    // 清除所有已完成
-    clearAllDone = () => {
-        this.setState({
-            todos: this.state.todos.filter(item => !item.done)
+            users
         })
     }
 
     render() {
         return (
-            <div className="todo-container">
-                <div className="todo-wrap">
-                    <Header addTodo={this.addTodo}/>
-                    <List deleteTodo={this.deleteTodo} updateTodos={this.updateTodos} todos={this.state.todos}/>
-                    <Footer clearAllDone={this.clearAllDone} checkTodoAll={this.checkTodoAll} todos={this.state.todos}/>
-                </div>
+            <div>
+                <Search saveUsers={this.saveUsers}/>
+                <List users={this.state.users}/>
             </div>
-        )
+        );
     }
 }
 
-// 默认暴露 App 组件
-export default App
+export default App;

@@ -28,14 +28,32 @@ class App extends React.Component {
         })
         this.setState({todos: newTodos})
     }
+    // 删除一个todo
+    deleteTodo = (id) => {
+        this.setState({
+            todos: this.state.todos.filter(item => item.id !== id)
+        })
+    }
+    // 全选、取消权限
+    checkTodoAll = (done) => {
+        this.setState({
+            todos: this.state.todos.map(item => ({...item, item, done: done}))
+        })
+    }
+    // 清除所有已完成
+    clearAllDone = () => {
+        this.setState({
+            todos: this.state.todos.filter(item => !item.done)
+        })
+    }
 
     render() {
         return (
             <div className="todo-container">
                 <div className="todo-wrap">
                     <Header addTodo={this.addTodo}/>
-                    <List updateTodos={this.updateTodos} todos={this.state.todos}/>
-                    <Footer/>
+                    <List deleteTodo={this.deleteTodo} updateTodos={this.updateTodos} todos={this.state.todos}/>
+                    <Footer clearAllDone={this.clearAllDone} checkTodoAll={this.checkTodoAll} todos={this.state.todos}/>
                 </div>
             </div>
         )

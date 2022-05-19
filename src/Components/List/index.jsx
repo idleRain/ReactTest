@@ -9,7 +9,7 @@ class List extends Component {
             <ul className="todo-main">
                 {
                     todos.map(todo => {
-                        return <Item updateTodos={this.props.updateTodos} key={todo.id} {...todo}/>
+                        return <Item updateTodos={this.props.updateTodos} deleteTodo={this.props.deleteTodo} key={todo.id} {...todo}/>
                     })
                 }
             </ul>

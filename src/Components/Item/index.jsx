@@ -9,6 +9,11 @@ class Item extends Component {
             this.props.updateTodos(id,e.target.checked)
         }
     }
+    // 点击删除按钮的回调
+    delTodo = id => {
+        // console.log(id)
+        if (window.confirm('确认删除吗？')) this.props.deleteTodo(id)
+    }
 
     render() {
         const {id, title, done} = this.props
@@ -16,10 +21,10 @@ class Item extends Component {
             <li>
                 <label>
                     {/*<input type="checkbox" checked={done}/>*/}
-                    <input type="checkbox" onChange={this.handleCheck(id)} defaultChecked={done}/>
+                    <input type="checkbox" onChange={this.handleCheck(id)} checked={done}/>
                     <span>{title}</span>
                 </label>
-                <button className="btn btn-danger">删除</button>
+                <button onClick={() => this.delTodo(id)} className="btn btn-danger">删除</button>
             </li>
         );
     }

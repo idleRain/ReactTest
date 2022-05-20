@@ -13,17 +13,15 @@ class App extends Component {
         // 请求相关的错误信息
         err: ''
     }
-    saveUsers = users => {
-        this.setState({
-            users
-        })
+    updateAppState = stateObj => {
+        this.setState(stateObj)
     }
 
     render() {
         return (
             <div>
-                <Search saveUsers={this.saveUsers}/>
-                <List users={this.state.users}/>
+                <Search updateAppState={this.updateAppState}/>
+                <List {...this.state}/>
             </div>
         );
     }

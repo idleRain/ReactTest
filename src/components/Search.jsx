@@ -4,15 +4,29 @@ import './Search.css'
 
 class Search extends Component {
     searchUser = async () => {
-        const {keyWord: {value: v}} = this
-        if (!v.trim()) return
+        const {keyWord: {value: q}} = this
+        if (!q.trim()) return
+        // 发送请求前通知 App 更新状态
+        this.props.updateAppState({
+            isFirst: false,
+            isLoading: true
+        })
+        // 发送请求
         const {data: res} = await axios.get('https://api.github.com/search/users', {
-            params: {
-                q: v
-            }
-        }).catch(error => console.log(error))
-        console.log(res)
-        this.props.saveUsers(res.items)
+            params: { q }
+        }).catch(error => {
+            // 请求失败后通知 App 更新状态
+            return this.props.updateAppState({
+                isLoading: false,
+                error: error.message
+            })
+        })
+        // console.log(res)
+        // 发送请求成功后通知 App 更新状态
+        this.props.updateAppState({
+            isLoading: false,
+            users: res.items
+        })
     }
 
     render() {

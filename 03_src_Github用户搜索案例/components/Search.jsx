@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-// import axios from "axios";
+import axios from "axios";
 import './Search.css'
 
 class Search extends Component {
@@ -12,36 +12,21 @@ class Search extends Component {
             isLoading: true
         })
         // 发送请求
-        /* const {data: res} = await axios.get('https://api.github.com/search/users', {
-             params: { q }
-         }).catch(error => {
-             // 请求失败后通知 App 更新状态
-             return this.props.updateAppState({
-                 isLoading: false,
-                 error: error.message
-             })
-         })*/
-        // 用 fetch 发送请求
-        try {
-            const res = await fetch('https://api.github.com/search/users?q=' + q)
-            const data = await res.json()
-            this.props.updateAppState({
-                isLoading: false,
-                users: data.items
-            })
-        } catch (e) {
+        const {data: res} = await axios.get('https://api.github.com/search/users', {
+            params: { q }
+        }).catch(error => {
             // 请求失败后通知 App 更新状态
-            this.props.updateAppState({
+            return this.props.updateAppState({
                 isLoading: false,
-                error: e
+                error: error.message
             })
-        }
+        })
         // console.log(res)
         // 发送请求成功后通知 App 更新状态
-        /*this.props.updateAppState({
+        this.props.updateAppState({
             isLoading: false,
             users: res.items
-        })*/
+        })
     }
 
     render() {

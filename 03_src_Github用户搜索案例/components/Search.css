@@ -1,0 +1,9 @@
+.search-box{
+    height: 200px;
+    background: #efefef;
+}
+.search-content{
+    width: 800px;
+    padding: 40px 0 0;
+    margin: 0 auto;
+}

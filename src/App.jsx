@@ -1,27 +1,26 @@
 import React, {Component} from 'react';
-import Search from "./components/Search";
-import List from "./components/List";
+// 引入 react 路由
+import {Link, BrowserRouter, Route} from 'react-router-dom'
+import './App.css'
+import Home from "./components/Home";
+import About from "./components/About";
 
 class App extends Component {
-    state = {
-        // 初始化用户信息
-        users: [],
-        // 是否第一次打开
-        isFirst: true,
-        // 是否加载中
-        isLoading: false,
-        // 请求相关的错误信息
-        err: ''
-    }
-    updateAppState = stateObj => {
-        this.setState(stateObj)
-    }
-
     render() {
         return (
-            <div>
-                <Search updateAppState={this.updateAppState}/>
-                <List {...this.state}/>
+            <div id="App">
+                <h1>Hello!</h1>
+                <div className="row">
+                    <div className="left">
+                        <Link to="/home">home</Link>
+                        <Link to="/about">about</Link>
+                    </div>
+                    <div className="panel">
+                        {/*注册路由*/}
+                        <Route path="/home" component={Home}/>
+                        <Route path="/about" component={About}/>
+                    </div>
+                </div>
             </div>
         );
     }

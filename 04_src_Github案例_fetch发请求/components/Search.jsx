@@ -22,26 +22,27 @@ class Search extends Component {
              })
          })*/
         // 用 fetch 发送请求
-        try {
-            const res = await fetch('https://api.github.com/search/users?q=' + q)
-            const data = await res.json()
-            this.props.updateAppState({
-                isLoading: false,
-                users: data.items
-            })
-        } catch (e) {
-            // 请求失败后通知 App 更新状态
-            this.props.updateAppState({
-                isLoading: false,
-                error: e
-            })
-        }
         // console.log(res)
         // 发送请求成功后通知 App 更新状态
         /*this.props.updateAppState({
             isLoading: false,
             users: res.items
         })*/
+        try {
+            const response = await fetch('https://api.github.com/search/users?q=' + q)
+            const data = await  response.json()
+            // 发送请求成功后通知 App 更新状态
+            this.props.updateAppState({
+                isLoading: false,
+                users: data.items
+            })
+        } catch (error) {
+            // 请求失败后通知 App 更新状态
+            this.props.updateAppState({
+                isLoading: false,
+                error
+            })
+        }
     }
 
     render() {
